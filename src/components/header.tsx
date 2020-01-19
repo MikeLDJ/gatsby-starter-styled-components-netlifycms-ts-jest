@@ -5,7 +5,7 @@ type Props = {
   siteTitle: string;
 };
 
-const Header: React.FC<Props> = ({ siteTitle = '' }) => (
+const Header: React.FC<Props> = ({ siteTitle }) => (
   <header
     style={{
       background: `rebeccapurple`,

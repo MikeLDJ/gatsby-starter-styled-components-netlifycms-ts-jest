@@ -19,18 +19,28 @@
     "react-helmet": "^5.2.1"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.7.7",
+    "@types/enzyme": "^3.10.4",
+    "@types/jest": "^24.0.25",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/react-helmet": "^5.0.15",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
+    "babel-jest": "^24.9.0",
+    "babel-preset-gatsby": "^0.2.26",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.17.0",
     "husky": "^3.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
+    "react-test-renderer": "^16.12.0",
     "typescript": "^3.7.4"
   },
   "keywords": [
@@ -46,7 +56,7 @@
     "clean": "gatsby clean",
     "lint": "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",
     "lint:fix": "yarn lint --fix",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -59,5 +69,29 @@
     "hooks": {
       "pre-commit": "yarn lint"
     }
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[jt]sx?$": "<rootDir>/config/jest-preprocess.js"
+    },
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss)$":
+      "identity-obj-proxy",
+      ".+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+      "<rootDir>/__mocks__/file-mock.js"
+    },
+    "testPathIgnorePatterns": ["node_modules",
+      ".cache",
+      "public",
+      "config"],
+    "transformIgnorePatterns": ["node_modules/(?!(gatsby)/)"],
+    "globals": {
+      "__PATH_PREFIX__": ""
+    },
+    "testURL": "http://localhost",
+    "setupFilesAfterEnv": [
+      "<rootDir>/config/jest.setup.js",
+      "<rootDir>/config/jest.loadershim.js"
+    ]
   }
 }
