@@ -27,7 +27,13 @@ describe('Layout', () => {
     useStaticQuery.mockImplementation(() => data);
   });
 
-  it('should render main and correctly pass children', () => {
+  it('should render correctly with styled components', () => {
+    const wrapper = shallow(<Layout {...props} />);
+
+    expect(wrapper.find('StyledPageContainer')).toHaveLength(1);
+  });
+
+  it('should pass children', () => {
     const wrapper = shallow(<Layout {...props} />);
 
     expect(wrapper.find('main')).toEqual(props.children);
